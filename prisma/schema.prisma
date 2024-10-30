@@ -6,3 +6,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Employee {
+  id                                  String                  @id @unique @default(uuid())
+  isActive                            Boolean                 @default(false)
+  createdAt                           DateTime                @default(now())
+  email                               String                  @unique
+  hashedPassword                      String                    @unique
+  jobTitle                            EmployeeRole            @default(NOT_ASSIGNED)
+}
+
+enum EmployeeRole {
+  ADMIN
+  PROGRAMMER
+  CUSTOMER_SUPPORT
+  NOT_ASSIGNED
+}
